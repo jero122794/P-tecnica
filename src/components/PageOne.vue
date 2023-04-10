@@ -51,13 +51,13 @@
             <label for="archivo">Foto Documento-Frente</label>
               <input type="file" id="archivo" accept="image/jpeg" @change="onFileChange" required>
                 <p v-if="archivoInvalido" class="error">Por favor, seleccione un archivo en formato JPG.</p>
-                  <button type="submit" :disabled="archivoInvalido">Enviar</button>
+                  <div class="btn2"><button type="submit" :disabled="archivoInvalido">Enviar</button></div>
                     <p v-if="archivoInvalido" class="error">Por favor, corrija los errores antes de enviar el formulario.</p>
 
             <label for="archivo">Foto Documento-Reverso</label>
               <input type="file" id="archivo" accept="image/jpeg" @change="onFileChange" required>
                 <p v-if="archivoInvalido" class="error">Por favor, seleccione un archivo en formato JPG.</p>
-                  <button type="submit" :disabled="archivoInvalido">Enviar</button>
+                  <div class="btn2"><button type="submit" :disabled="archivoInvalido">Enviar</button></div>
                     <p v-if="archivoInvalido" class="error">Por favor, corrija los errores antes de enviar el formulario.</p>
         
         </div>
@@ -74,7 +74,7 @@
       </div>
        <div>
         <span v-for="(paso, index) in pasos" :key="index">
-         {{ paso.nombre }} {{ index === pasos.length - 1 ? '' : ' - ' }}
+         {{ paso.nombre }} {{ index === pasos.length - 1 ? '' : ' ' }}
         </span>
       </div>
    </form>
@@ -234,8 +234,7 @@
         this.senombreIsValid = false;
       }  
     },
-    tdocumentosIsValid() {
-     
+    tdocumentosIsValid() { 
       if (this.tdocumento !== '') {
         this.tdocumentosIsValid = true;
       } else {
@@ -278,29 +277,29 @@
 
 h2{
   text-align: center;
-  padding: 0 20px;
+  padding: 0 0.5em;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 4em;
+  font-size: 2.5em;
 }
  
 body {
   padding: 1em;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 15px;
+  font-size: 1em;
   color: #b9b9b9;
   background-color: #e3e3e3;
   overflow-x: hidden;
   width: 100%;
   height: 100%;
   background-color: #2a2b38;
-  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
- 
+  
 
 }
 .container{
   background-color: #e3e3e3;
   margin: 0 auto;
-  width: 30%;
+  width:30%;
   background-color: #2a2b38;
   background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg');
   background-position: bottom center;
@@ -340,14 +339,15 @@ input[type="tel"],
 input[type="datetime"],
 input[type="email"],
 input[type="password"],
-input[type="phone"]{
+input[type="phone"],
+input[type="tel"]{
   
   text-align: center;
-  padding: 10px;
+  padding: 0.6em;
   border: none;
   border-radius: 5px;
   margin: 0 auto ;
-  width: 410px;
+  width: 44em;
 }
 
 label{
@@ -355,7 +355,7 @@ label{
   margin: 0 auto;
   width: fit-content;
   text-align: center;
-  box-shadow: 0 8px 24px 0 rgba(255,235,167,.2)
+  filter:drop-shadow(0 8px 24px 0 rgba(255,235,167,.2)); 
   
 }
 
@@ -382,7 +382,7 @@ select {
   -o-transition: 0.35s ease-in-out;
   transition: 0.35s ease-in-out;
   transition: all 0.35s ease-in-out;
-  box-shadow: 0 8px 24px 0 rgba(255,235,167,.2)
+  filter: drop-shadow(0 8px 24px 0 #ffeba733); 
 }
 
 select:focus,
@@ -412,8 +412,8 @@ button{
   margin: 0 auto;
   padding-left: 40%;
   border-radius: 4px;
-  height: 44px;
-  font-size: 13px;
+  height: 2.7em;
+  font-size: 1em;
   font-weight: 600;
   width: fit-content;
   text-transform: uppercase;
@@ -440,6 +440,11 @@ button{
   box-shadow: 0 8px 24px 0 rgba(255,235,167,.2);
 
 }
+
+.btn2{
+  width: 50%;
+}
+
 button:active,
 button:focus{  
   background-color: #102770;
@@ -452,7 +457,57 @@ button:hover{
   box-shadow: 0 8px 24px 0 rgba(16,39,112,.2);
 }
 
+@media screen and (min-width: 1366px){
+
+  h2{
+    font-size: 1em;
+  }
+
+  body{
+  width: 100%;
+  height: 100%;
+}
+  input[type="text"],
+  input[type="tel"],
+  input[type="tel"],
+  input[type="datetime"],
+  input[type="email"],
+  input[type="password"],
+  input[type="phone"]
+  input[type="cel"]{
+  width: 103%;
+}
 
 
+
+  
+}
+
+@media screen and (min-width: 800px){
+
+h2{
+  font-size: 1em;
+}
+
+
+body{
+  width: 100%;
+  height: 100%;
+}
+
+input[type="text"],
+  input[type="tel"],
+  input[type="tel"],
+  input[type="datetime"],
+  input[type="email"],
+  input[type="password"],
+  input[type="phone"]{
+  width: 103%;
+}
+
+
+
+
+}
 </style>
  

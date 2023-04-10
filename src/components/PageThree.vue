@@ -2,14 +2,14 @@
     <div class="container">
       <form >
         <label for="direccion">Dirección residencia:</label>
-          <input name="direccion" v-model="direccion" type="text" required>
+          <input name="direccion" v-model="direccion" type="text" placeholder="Calle 5 #96-01" required>
             <span v-if="direccionIsValid">✓</span>
               <span v-else>✗</span>
             
 
-        <label for="codigopostal">Código postal</label>
-          <input name="codigopostal" v-model="cPostal" type="text" required>
-            <span v-if="cPostalIsValid">✓</span>
+        <label for="cPostals">Código postal</label>
+          <input name="cPostals" type="tel" id="cPostals" v-model="cPostals"  placeholder="050001" required>
+            <span v-if="cPostalsIsValid">✓</span>
               <span v-else>✗</span>
             
 
@@ -32,7 +32,6 @@
     data() {
       return {
         direccion: '',
-        codigoPostal: '',
         showConfirmation: false,
         pais: '',
         genero: '',
@@ -40,13 +39,14 @@
         segundonombre:'',
         fechanacimiento:'',
         tdocumento:'',
-        ndocumento:'',
+        numeroDocumento:'',
         archivo:'',
         email:'',
         password:'',
-        cpassword:'',
+        ConfirmPassword:'',
         Phone:'',
         cel:'',
+        cPostals:'',
         showModal: false,
 
       }
@@ -60,35 +60,44 @@
         this.showConfirmation = true;
         this.showModal = false;
       },
+      cPostalsIsValid(){
+        if (/^[0-9]{5,}$/.test(this.cPostals)) {
+          this.cPostalsIsValid = true;
+        } else {
+          this.cPostalsIsValid = false;
+      }
+      }
 
     },
     computed: {
       direccionIsValid() {
         return this.direccion.includes('#'); 
       },
-      cPostalIsValid() {
-        return this.cPostalIsValid; 
-      },
 
     },
+      cPostalsIsValid(){
+        const cPostalsRegex = /^[0-9]{5,}$/;
+        return cPostalsRegex.test(this.cPostals);
+      },
+    
+      
+
+      
 
   };
 </script>
+
 <style>
-*{
-  font-family: 'Roboto', sans-serif;
-  font-weight: lighter;
-  font-style: normal;
-  text-align: left;
-  margin-top: 60px;
-  letter-spacing: 2px;
-  word-spacing: 5px;
- 
-}
- 
-.form-group{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
- }
+body {
+  padding: 1em;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  color: #b9b9b9;
+  background-color: #e3e3e3;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: #2a2b38;
+
+  }
 </style>

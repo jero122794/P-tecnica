@@ -16,22 +16,24 @@
       <label for="cpassword">Confirmar Contraseña</label>  
           <input name="cpassword" type="password" id="confirm-password" v-model="ConfirmPassword" v-on:input="validatePassword" required>
             <span v-if="!passwordsMatch">✗ Las contraseñas no coinciden</span>
-              <span v-else-if="passwordIsValid">✓</span>
+              <span v-else-if="ConfirmPasswordIsValid">✓</span>
                   <span v-else>✗</span>
             
       <label for="phone">Número Télefono</label>
-          <input name="phone" type="phone" id="phone" v-model="phone" required>
-            
+          <input name="phone" type="phone" id="phone" v-model="numeroTelefono" required>
+            <span v-if="numeroTelefonoIsValid">✓</span>
+              <span v-else>✗</span> 
 
             
       <label for="Cel">Número Celular</label>
-          <input name="cel" type="phone" id="phone" v-model="phone" required>
-            
+          <input name="cel" type="phone" id="phone" v-model="numeroCelular" required>
+            <span v-if="numeroCelularIsValid">✓</span>
+              <span v-else>✗</span> 
       
       <div v-for="(paso, index) in pasos" :key="index" v-show="index === pasoActual">
          <component :is="paso.componente" @validado="onValidado" />
       </div>  
-      <div>
+      <div class="button">
         <button @click="avanzar" >Avanzar</button>
         <button @click.prevent="prevPage">Anterior</button>
         <button @click.prevent="nextPage">Siguiente</button>
@@ -48,7 +50,9 @@ export default {
       email: '',
       emailError: false,
       password: '',
-      confirmPassword: '',
+      ConfirmPassword:'',
+      numeroTelefono: '',
+      numeroCelular: '',
     };   
   },
 
@@ -62,6 +66,21 @@ export default {
         this.emailError = false;
       }
     },
+    numeroTelefonoIsvalid(){
+        if (/^[0-9]{5,}$/.test(this.numeroTelefono)) {
+          this.numeroTelefonoIsValid = true;
+        } else {
+          this.numeroTelefonoIsValid = false;
+      }
+    },
+
+    numeroCelularIsvalid(){
+        if (/^[0-9]{5,}$/.test(this.numeroCelular)) {
+          this.numeroCelularIsValid = true;
+        } else {
+          this.numeroCelularIsValid = false;
+      }
+    },
 
     prevPage() {
         this.$router.push('/PageOne')
@@ -71,7 +90,7 @@ export default {
       }, 
 
       validatePassword() {
-      this.passwordsMatch = this.password === this.cpassword;
+      this.passwordsMatch = this.password === this.ConfirmPassword;
       },
     },
       avanzar() {
@@ -83,6 +102,7 @@ export default {
       onValidado(valido) {
        this.pasoActualValido = valido
      },
+    
 
       
     computed: {
@@ -95,38 +115,40 @@ export default {
       passwordIsValid() {
         return this.password.includes('*') && this.password.length > 8; 
       },
-      cpasswordIsValid() {
-        return this.cpassword === this.password; 
+      ConfirmPasswordIsValid() {
+        return this.ConfirmPassword === this.password; 
       },
-      
-     
-    }, 
-    
+      numeroTelefonoIsValid() {
+        const numeroTelefonoRegex = /^[0-9]{5,}$/;
+        return numeroTelefonoRegex.test(this.numeroTelefono);
+      },
+      numeroCelularIsValid() {
+        const numeroCelularRegex = /^[0-9]{5,}$/;
+        return numeroCelularRegex.test(this.numeroCelular);
+      },
+    },
+
+  
     watch: {
        email: function() {
         this.validateEmail();
       }
     }
   };
-    
-
 </script>
-
 <style>
- *{
-  font-family: 'Roboto', sans-serif;
-  font-weight: lighter;
-  font-style: normal;
-  text-align: left;
-  margin-top: 60px;
-  letter-spacing: 2px;
-  word-spacing: 5px;
- 
-}
- 
-.form-group{
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
- }
+
+body {
+  padding: 1em;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  color: #b9b9b9;
+  background-color: #e3e3e3;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: #2a2b38;
+
+  }
 </style>
+
